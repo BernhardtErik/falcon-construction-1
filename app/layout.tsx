@@ -1,66 +1,41 @@
+import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
-import { Link } from "@heroui/link";
-import clsx from "clsx";
-
 import { Providers } from "./providers";
-
-import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
-import Navbar from "@/components/navbar";
+import AppNavbar from "@/components/navbar";
 
 export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
-
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+    title: "Falcon Construction",
+    description: "Falcon Construction — Quality building and renovations.",
 };
 
 export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
+                                       children,
+                                   }: {
+    children: React.ReactNode;
 }) {
-  return (
-    <html suppressHydrationWarning lang="en">
-      <head />
-      <body
-        className={clsx(
-          "min-h-screen text-foreground bg-background font-sans antialiased",
-          fontSans.variable,
-        )}
-      >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">
-            <Navbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-              {children}
-            </main>
-            <footer className="w-full flex items-center justify-center py-3">
-              <Link
-                isExternal
-                className="flex items-center gap-1 text-current"
-                href="https://heroui.com?utm_source=next-app-template"
-                title="heroui.com homepage"
-              >
-                <span className="text-default-600">Powered by</span>
-                <p className="text-primary">HeroUI</p>
-              </Link>
+    return (
+        <html lang="en" className="scroll-smooth"> {/* smooth scrolling */}
+        <body className="bg-white text-black antialiased">
+        <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
+
+            {/* Navbar */}
+            <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/90 backdrop-blur">
+                <AppNavbar />
+            </header>
+
+            {/* Main content (Home, About, Projects, Contact) */}
+            <main>{children}</main>
+
+            {/* Footer */}
+            <footer className="border-t border-neutral-200 bg-white">
+                <div className="mx-auto max-w-6xl px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p className="text-sm">© {new Date().getFullYear()} Falcon Construction. All rights reserved.</p>
+                    <a href="#contact" className="text-sm underline underline-offset-4">Get a quote</a>
+                </div>
             </footer>
-          </div>
+
         </Providers>
-      </body>
-    </html>
-  );
+        </body>
+        </html>
+    );
 }
