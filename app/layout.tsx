@@ -14,28 +14,32 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className="scroll-smooth"> {/* smooth scrolling */}
+        <html lang="en" className="scroll-smooth">
         <body className="bg-white text-black antialiased">
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
-
-            {/* Navbar */}
             <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/90 backdrop-blur">
+                {/* Navbar */}
                 <AppNavbar />
             </header>
-
-            {/* Main content (Home, About, Projects, Contact) */}
             <main>{children}</main>
-
-            {/* Footer */}
             <footer className="border-t border-neutral-200 bg-white">
+                {/* Footer */}
                 <div className="mx-auto max-w-6xl px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-sm">© {new Date().getFullYear()} Falcon Construction. All rights reserved.</p>
-                    <a href="#contact" className="text-sm underline underline-offset-4">Get a quote</a>
+                    <p className="text-sm">
+                        © {new Date().getFullYear()} Falcon Construction. All rights
+                        reserved.
+                    </p>
+                    <a
+                        href="#contact"
+                        className="text-sm underline underline-offset-4"
+                    >
+                        Get a quote
+                    </a>
                 </div>
             </footer>
-
         </Providers>
         </body>
         </html>
     );
 }
+

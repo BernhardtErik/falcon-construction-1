@@ -15,25 +15,49 @@ export default function HomePage() {
         <div className="bg-white text-black">
 
             {/* ====== HOME / HERO ====== */}
-            <section id="home" className="mx-auto max-w-6xl px-6 pt-20 pb-16 text-center scroll-mt-24">
-                <Image src={logo} alt="Falcon Construction" priority className="mx-auto h-24 w-auto" />
-                <h1 className="text-4xl md:text-5xl font-bold mt-6">Quality Construction. Built to Last.</h1>
-                <p className="mt-4 text-neutral-700 text-lg md:text-xl">
-                    Falcon Construction delivers residential and commercial projects with craftsmanship, reliability, and transparency.
-                </p>
+            <section
+                id="home"
+                className="relative w-full h-[70vh] md:h-[80vh] lg:h-[90vh] scroll-mt-24 flex items-center justify-center text-center"
+            >
+                {/* Background video */}
+                {/*add video van miche se construction*/}
+                <video
+                    className="absolute inset-0 h-full w-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    poster="/images/FALCONConstruction.png"
+                >
+                    <source src="/videos/construction.mov" type="video/mp4" />
+                    {/* Optional WebM source if provided in the future */}
+                    {/* <source src="/videos/hero.webm" type="video/webm" /> */}
+                </video>
 
-                <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-                    <Link href="#projects">
-                        <Button variant="solid" className="bg-black text-white px-6 py-3">
-                            View Projects
-                        </Button>
-                    </Link>
+                {/* Dark overlay for readability */}
+                <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
 
-                    <Link href="#contact">
-                        <Button variant="ghost" className="border border-black text-black px-6 py-3">
-                            Contact Us
-                        </Button>
-                    </Link>
+                {/* Foreground content */}
+                <div className="relative z-10 px-6 max-w-4xl mx-auto text-white">
+                    <Image src={logo} alt="Falcon Construction" priority className="mx-auto h-24 w-auto drop-shadow" />
+                    <h1 className="text-4xl md:text-5xl font-bold mt-6">Quality Construction. Built to Last.</h1>
+                    <p className="mt-4 text-neutral-200 text-lg md:text-xl">
+                        Falcon Construction delivers residential and commercial projects with craftsmanship, reliability, and transparency.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+                        <Link href="#projects">
+                            <Button variant="solid" className="bg-white text-black px-6 py-3">
+                                View Projects
+                            </Button>
+                        </Link>
+
+                        <Link href="#contact">
+                            <Button variant="ghost" className="border border-white text-white px-6 py-3">
+                                Contact Us
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
             </section>
 
