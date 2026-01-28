@@ -4,42 +4,35 @@ import { Providers } from "./providers";
 import AppNavbar from "@/components/navbar";
 
 export const metadata: Metadata = {
-    title: "Falcon Construction",
-    description: "Falcon Construction — Quality building and renovations.",
+  title: "Falcon Construction",
+  description: "Falcon Construction — Quality building and renovations.",
 };
 
 export default function RootLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode;
+  children,
+}: {
+  children: React.ReactNode;
 }) {
-    return (
-        <html lang="en" className="scroll-smooth">
-        <body className="bg-white text-black antialiased">
+  return (
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className="bg-white text-black antialiased">
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
-            <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/90 backdrop-blur">
-                {/* Navbar */}
-                <AppNavbar />
-            </header>
-            <main>{children}</main>
-            <footer className="border-t border-neutral-200 bg-white">
-                {/* Footer */}
-                <div className="mx-auto max-w-6xl px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-sm">
-                        © {new Date().getFullYear()} Falcon Construction. All rights
-                        reserved.
-                    </p>
-                    <a
-                        href="#contact"
-                        className="text-sm underline underline-offset-4"
-                    >
-                        Get a quote
-                    </a>
-                </div>
-            </footer>
+          <header className="sticky top-0 z-50 border-b border-yellow-400 bg-white/90 backdrop-blur">
+            {/* Navbar */}
+            <AppNavbar />
+          </header>
+          <main>{children}</main>
+          <footer className="border-t border-yellow-400 bg-white">
+            {/* Footer */}
+            <div className="mx-auto max-w-6xl px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-sm">
+                © {new Date().getFullYear()} Falcon Construction. All rights
+                reserved.
+              </p>
+            </div>
+          </footer>
         </Providers>
-        </body>
-        </html>
-    );
+      </body>
+    </html>
+  );
 }
-
