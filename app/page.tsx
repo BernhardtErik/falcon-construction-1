@@ -4,19 +4,46 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import logo from "@/public/images/FALCON Construction_Logo_Black.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { heroVideos } from "@/config/videos";
 
 export default function HomePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [showAllProjects, setShowAllProjects] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
+  // Initialize with a random video and cycle through them
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * heroVideos.length);
+    setCurrentVideoIndex(randomIndex);
+  }, []);
+
+  const handleVideoEnd = () => {
+    setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % heroVideos.length);
+  };
+
+  const handlePrevVideo = () => {
+    setCurrentVideoIndex((prevIndex) =>
+      prevIndex === 0 ? heroVideos.length - 1 : prevIndex - 1,
+    );
+  };
+
+  const handleNextVideo = () => {
+    setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % heroVideos.length);
+  };
+
+  const handleDotClick = (index: number) => {
+    setCurrentVideoIndex(index);
+  };
+
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -36,7 +63,7 @@ export default function HomePage() {
 
       if (response.ok) {
         setSubmitMessage(
-          "✓ Message sent successfully! We'll be in touch soon."
+          "✓ Message sent successfully! We'll be in touch soon.",
         );
         setFormData({ name: "", email: "", message: "" });
       } else {
@@ -63,22 +90,77 @@ export default function HomePage() {
         className="relative w-full h-[70vh] md:h-[80vh] lg:h-[90vh] scroll-mt-24 flex items-center justify-center text-center"
       >
         {/* Background video */}
-        {/*add video van miche se construction*/}
         <video
+          key={currentVideoIndex}
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay
           muted
-          loop
           playsInline
           poster="/images/FALCONConstruction.png"
+          onEnded={handleVideoEnd}
         >
-          <source src="/videos/construction.mov" type="video/mp4" />
-          {/* Optional WebM source if provided in the future */}
-          {/* <source src="/videos/hero.webm" type="video/webm" /> */}
+          <source src={heroVideos[currentVideoIndex]} type="video/mp4" />
         </video>
 
         {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+
+        {/* Navigation Buttons */}
+        <button
+          onClick={handlePrevVideo}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/30 hover:bg-white/50 text-white p-2 rounded-full transition"
+          aria-label="Previous video"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+
+        <button
+          onClick={handleNextVideo}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/30 hover:bg-white/50 text-white p-2 rounded-full transition"
+          aria-label="Next video"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+
+        {/* Video Navigation Dots */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {heroVideos.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleDotClick(index)}
+              className={`w-2.5 h-2.5 rounded-full transition ${
+                index === currentVideoIndex
+                  ? "bg-yellow-400"
+                  : "bg-white/50 hover:bg-white/75"
+              }`}
+              aria-label={`Go to video ${index + 1}`}
+            />
+          ))}
+        </div>
 
         {/* Foreground content */}
         <div className="relative z-10 px-6 max-w-4xl mx-auto text-white">
@@ -127,7 +209,7 @@ export default function HomePage() {
           <div>
             <h2 className="text-3xl font-semibold mb-4">About Us</h2>
             <p className="text-neutral-700">
-              Led by Michael Groenewald, our construction company specializes in
+              Led by Miche Groenewald, our construction company specializes in
               the core structural elements of building. We focus primarily on
               wet works, including bricklaying, concrete work, and
               cement-related construction. With a strong emphasis on quality,
@@ -179,49 +261,93 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ====== WE SPECIALIZE IN ====== */}
+      <section
+        id="specialize"
+        className="scroll-mt-24 mx-auto max-w-6xl px-6 py-16 border-t border-yellow-400"
+      >
+        <h2 className="text-3xl font-semibold mb-8 text-left">
+          We Specialize In
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="rounded-lg border border-yellow-400 p-6 bg-neutral-50 text-center">
+            <h3 className="text-xl font-semibold mb-2">Bricklaying</h3>
+            <p className="text-neutral-700">
+              Expert bricklaying and masonry work for residential and commercial
+              projects.
+            </p>
+          </div>
+          <div className="rounded-lg border border-yellow-400 p-6 bg-neutral-50 text-center">
+            <h3 className="text-xl font-semibold mb-2">Concrete Work</h3>
+            <p className="text-neutral-700">
+              High-quality concrete solutions including foundations, slabs, and
+              structural elements.
+            </p>
+          </div>
+          <div className="rounded-lg border border-yellow-400 p-6 bg-neutral-50 text-center">
+            <h3 className="text-xl font-semibold mb-2">Wet Works</h3>
+            <p className="text-neutral-700">
+              Comprehensive wet works including waterproofing and cement-related
+              construction.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ====== PROJECTS ====== */}
       <section
         id="projects"
         className="scroll-mt-24 mx-auto max-w-6xl px-6 py-16 border-t border-yellow-400"
       >
-        <h2 className="text-3xl font-semibold mb-8 text-center">
-          Showroom / Projects
-        </h2>
+        <h2 className="text-3xl font-semibold mb-8 text-left">Showroom</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="group overflow-hidden rounded-lg border border-yellow-400 bg-neutral-50 shadow-sm hover:shadow-md transition"
-            >
-              <div className="aspect-[4/3] bg-neutral-100 flex items-center justify-center text-neutral-400 overflow-hidden relative">
-                {index === 0 ? (
-                  <Image
-                    src="/videos/miche.videos/IMG_1954.JPEG"
-                    alt={project.title}
-                    fill
-                    className="object-cover w-full h-full"
-                  />
-                ) : (
-                  <span className="text-sm">Project Image</span>
-                )}
+          {projects
+            .slice(0, showAllProjects ? projects.length : 3)
+            .map((project, index) => (
+              <div
+                key={index}
+                className="group overflow-hidden rounded-lg border border-yellow-400 bg-neutral-50 shadow-sm hover:shadow-md transition"
+              >
+                <div className="aspect-[4/3] bg-neutral-100 flex items-center justify-center text-neutral-400 overflow-hidden relative">
+                  {index === 0 ? (
+                    <Image
+                      src="/videos/miche.videos/IMG_1954.JPEG"
+                      alt={project.title}
+                      fill
+                      className="object-cover w-full h-full"
+                    />
+                  ) : (
+                    <span className="text-sm">Project Image</span>
+                  )}
+                </div>
+                <div className="p-4 text-center">
+                  <h3 className="font-medium text-lg mb-1">{project.title}</h3>
+                  <p className="text-sm text-neutral-700">
+                    {project.description}
+                  </p>
+                  <Link href={`/projects/${index + 1}`}>
+                    <Button
+                      variant="ghost"
+                      className="mt-3 px-4 py-2 border border-yellow-400 text-yellow-400 text-sm"
+                    >
+                      View Details
+                    </Button>
+                  </Link>
+                </div>
               </div>
-              <div className="p-4 text-center">
-                <h3 className="font-medium text-lg mb-1">{project.title}</h3>
-                <p className="text-sm text-neutral-700">
-                  {project.description}
-                </p>
-                <Link href={`/projects/${index + 1}`}>
-                  <Button
-                    variant="ghost"
-                    className="mt-3 px-4 py-2 border border-yellow-400 text-yellow-400 text-sm"
-                  >
-                    View Details
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
+        {!showAllProjects && projects.length > 3 && (
+          <div className="flex justify-center mt-8">
+            <Button
+              onClick={() => setShowAllProjects(true)}
+              variant="solid"
+              className="bg-yellow-400 text-black px-6 py-3 font-semibold"
+            >
+              View More
+            </Button>
+          </div>
+        )}
       </section>
 
       {/* ====== CONTACT ====== */}

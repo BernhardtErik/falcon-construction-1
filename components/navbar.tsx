@@ -12,15 +12,18 @@ import {
   NavbarMenuItem,
   Link,
 } from "@heroui/react";
+import { usePathname } from "next/navigation";
 
 export default function AppNavbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   const menuItems = [
-    { label: "Home", href: "#home" },
-    { label: "About Us", href: "#about" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: isHomePage ? "#home" : "/#home" },
+    { label: "About Us", href: isHomePage ? "#about" : "/#about" },
+    { label: "Projects", href: isHomePage ? "#projects" : "/#projects" },
+    { label: "Contact", href: isHomePage ? "#contact" : "/#contact" },
   ];
 
   return (
@@ -35,7 +38,7 @@ export default function AppNavbar() {
         />
         <NavbarBrand className="pl-6">
           <Link
-            href="#home"
+            href="/"
             aria-label="Falcon Construction Home"
             className="flex items-center gap-2"
           >
