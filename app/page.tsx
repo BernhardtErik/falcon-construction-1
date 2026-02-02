@@ -227,35 +227,39 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="rounded-lg border border-yellow-400 p-6 bg-neutral-50">
-            <h3 className="text-xl font-semibold mb-3 text-center">
-              Why Choose Us
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="rounded-md border border-yellow-400 p-4 text-center">
-                <p className="font-medium">Craftsmanship</p>
-                <p className="text-sm text-neutral-700">
-                  Attention to detail in every stage of the build.
-                </p>
-              </div>
-              <div className="rounded-md border border-yellow-400 p-4 text-center">
-                <p className="font-medium">Reliability</p>
-                <p className="text-sm text-neutral-700">
-                  On-time delivery with transparent communication.
-                </p>
-              </div>
-              <div className="rounded-md border border-yellow-400 p-4 text-center">
-                <p className="font-medium">Quality Materials</p>
-                <p className="text-sm text-neutral-700">
-                  We partner with trusted suppliers for lasting results.
-                </p>
-              </div>
-              <div className="rounded-md border border-yellow-400 p-4 text-center">
-                <p className="font-medium">Safety</p>
-                <p className="text-sm text-neutral-700">
-                  Certified processes and site safety best practices.
-                </p>
-              </div>
+          <div className="rounded-lg border border-yellow-400 bg-neutral-100 h-96 overflow-hidden flex items-center justify-center">
+            <span className="text-neutral-400 text-lg">Image Container</span>
+          </div>
+        </div>
+
+        <div className="mt-12 rounded-lg border border-yellow-400 p-6 bg-neutral-50">
+          <h3 className="text-xl font-semibold mb-3 text-center">
+            Why Choose Us
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="rounded-md border border-yellow-400 p-4 text-center">
+              <p className="font-medium">Craftsmanship</p>
+              <p className="text-sm text-neutral-700">
+                Attention to detail in every stage of the build.
+              </p>
+            </div>
+            <div className="rounded-md border border-yellow-400 p-4 text-center">
+              <p className="font-medium">Reliability</p>
+              <p className="text-sm text-neutral-700">
+                On-time delivery with transparent communication.
+              </p>
+            </div>
+            <div className="rounded-md border border-yellow-400 p-4 text-center">
+              <p className="font-medium">Quality Materials</p>
+              <p className="text-sm text-neutral-700">
+                We partner with trusted suppliers for lasting results.
+              </p>
+            </div>
+            <div className="rounded-md border border-yellow-400 p-4 text-center">
+              <p className="font-medium">Safety</p>
+              <p className="text-sm text-neutral-700">
+                Certified processes and site safety best practices.
+              </p>
             </div>
           </div>
         </div>
@@ -337,14 +341,14 @@ export default function HomePage() {
               </div>
             ))}
         </div>
-        {!showAllProjects && projects.length > 3 && (
+        {projects.length > 3 && (
           <div className="flex justify-center mt-8">
             <Button
-              onClick={() => setShowAllProjects(true)}
+              onClick={() => setShowAllProjects(!showAllProjects)}
               variant="solid"
               className="bg-yellow-400 text-black px-6 py-3 font-semibold"
             >
-              View More
+              {showAllProjects ? "View Less" : "View More"}
             </Button>
           </div>
         )}
