@@ -51,9 +51,10 @@ export default function ContactPage() {
                             You can also reach us via phone, email, or visit our office:
                         </p>
                         <div className="space-y-2">
-                            <p><span className="font-medium">Phone:</span> (000) 123-4567</p>
-                            <p><span className="font-medium">Email:</span> info@falconconstruction.com</p>
-                            <p><span className="font-medium">Location:</span> Your City, Country</p>
+                            <p><span className="font-medium">Phone:</span> +27 71 329 8109</p>
+                            <p><span className="font-medium">Email:</span> miche@falcon-group.co.za</p>
+                            <p><span className="font-medium">Email:</span> annelise@falcon-group.co.za</p>
+                            <p><span className="font-medium">Location:</span> Saint Francis Bay, Eastern Cape</p>
                         </div>
                     </div>
 
