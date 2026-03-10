@@ -89,7 +89,7 @@ export default function HomePage() {
         id="home"
         className="relative w-full h-[70vh] md:h-[80vh] lg:h-[90vh] scroll-mt-24 flex items-center justify-center text-center"
       >
-        {/* Background video */}
+        {/* Background video - optimized for performance */}
         <video
           key={currentVideoIndex}
           className="absolute inset-0 h-full w-full object-cover"
@@ -98,6 +98,9 @@ export default function HomePage() {
           playsInline
           poster="/images/FALCONConstruction.png"
           onEnded={handleVideoEnd}
+          preload="auto"
+          // Optimize for mobile/web playback
+          // Videos should be compressed using scripts/compress-videos.js
         >
           <source src={heroVideos[currentVideoIndex]} type="video/mp4" />
         </video>
